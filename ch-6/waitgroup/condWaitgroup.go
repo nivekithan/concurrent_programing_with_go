@@ -41,3 +41,11 @@ func (wg *CondWaitGroup) Wait() {
 		wg.Wait()
 	}
 }
+
+func (wg *CondWaitGroup) TryWait() bool {
+
+	wg.cond.L.Lock()
+	defer wg.cond.L.Unlock()
+
+	return wg.tasks == 0
+}
